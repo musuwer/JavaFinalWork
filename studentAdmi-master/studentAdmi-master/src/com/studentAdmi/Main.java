@@ -4,73 +4,37 @@ import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 主类：负责初始化学生信息管理系统
- */
+// Main 类：程序的入口类，包含 main 方法，负责初始化应用程序的主界面
 public class Main {
-    // 主窗口对象，用于显示用户界面
-    static MainWindow mainWindow;
+    static MainWindow mainWindow;  // 主窗口对象
+    // 设置窗口图标，图片路径为绝对路径
+    static ImageIcon icon = new ImageIcon("studentAdmi-master\\src\\com\\resource\\sigh.jpg");  // 路径正确
+    // static ImageIcon icon = new ImageIcon("src\\com\\studentAdmi\\sigh.jpg"); // 路径错误，示例注释
+    static Map<String, Student> students = new HashMap<String, Student>();  // 存储学生信息的集合，键为学生ID，值为学生对象
+    private Main() {}  // 私有构造方法，防止直接实例化 Main 类
 
-    // 加载图片资源，作为窗口图标
-    // 路径正确：指向项目的实际文件夹位置
-    static ImageIcon icon = new ImageIcon("studentAdmi-master\\src\\com\\resource\\sigh.jpg");
-    // 路径错误：如果工作目录或路径结构不匹配，将无法加载图片
-    // static ImageIcon icon = new ImageIcon("src\\com\\studentAdmi\\sigh.jpg");
-
-    // 存储学生信息的哈希表，键为学生编号，值为学生对象
-    static Map<String, Student> students = new HashMap<String, Student>();
-
-    // 私有构造函数，防止创建 Main 类的实例
-    private Main() {}
-
-    /**
-     * 主方法：程序入口
-     */
+    // main 方法，程序的入口
     public static void main(String[] args) {
-        // 初始化并显示主窗口
-        mainWindow = new MainWindow();
+        mainWindow = new MainWindow();  // 创建并显示主窗口
     }
 }
 
-/**
- * 主窗口类：继承 JFrame，用于创建主界面
- */
+// MainWindow 类：继承自 JFrame，用于创建程序的主窗口
 class MainWindow extends JFrame {
-    // 主界面内容面板
-    static PrimePanel HomePanel;
+    static PrimePanel HomePanel;  // 主面板对象
 
-    /**
-     * 构造函数：初始化主窗口的属性和内容
-     */
+    // 构造方法：初始化主窗口
     MainWindow() {
-        super();  // 调用父类构造函数
-
-        // 设置窗口大小为 800x500 像素
-        this.setSize(800, 500);
-
-        // 设置窗口的图标为之前加载的 ImageIcon 对象
-        this.setIconImage(Main.icon.getImage());
-
-        // 清空布局管理器，自定义组件布局
-        this.setLayout(null);
-
-        // 初始化主界面内容面板，并设置大小和位置
-        HomePanel = new PrimePanel(0, 0, 800, 500);
-        this.getContentPane().add(HomePanel);  // 将内容面板添加到窗口中
-
-        // 禁止调整窗口大小
-        this.setResizable(false);
-
-        // 设置窗口在屏幕上的初始位置
-        this.setLocation(300, 150);
-
-        // 设置关闭窗口时的操作：仅关闭当前窗口而不退出程序
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        // 设置窗口标题
-        this.setTitle("学生信息管理系统");
-
-        // 显示窗口
-        this.setVisible(true);
+        super();  // 调用父类 JFrame 的构造方法
+        this.setSize(800, 500);  // 设置窗口的大小
+        this.setIconImage(Main.icon.getImage());  // 设置窗口图标
+        this.setLayout(null);  // 清空布局管理器，手动管理组件的位置和大小
+        HomePanel = new PrimePanel(0, 0, 800, 500);  // 创建并初始化主面板，大小为800x500
+        this.getContentPane().add(HomePanel);  // 将主面板添加到窗口的内容面板中
+        this.setResizable(false);  // 禁止窗口大小调整
+        this.setLocation(300, 150);  // 设置窗口的位置（x=300, y=150）
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // 设置关闭窗口时释放资源
+        this.setTitle("学生信息管理系统");  // 设置窗口标题
+        this.setVisible(true);  // 设置窗口可见
     }
 }
