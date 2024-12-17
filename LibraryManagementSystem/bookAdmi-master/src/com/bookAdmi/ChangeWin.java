@@ -1,9 +1,8 @@
 package com.bookAdmi;
 
-import javax.swing.*; // 引入 Swing 库
-import java.awt.*; // 引入 AWT 库
-import java.awt.event.ActionEvent; // 引入事件处理库
-import java.awt.event.ActionListener; // 引入事件监听器接口
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 // 定义 ChangeWin 类，继承自 JFrame
 public class ChangeWin extends JFrame {
@@ -26,7 +25,8 @@ public class ChangeWin extends JFrame {
         this.setLocation(400, 200); // 设置窗口生成位置
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 仅销毁当前窗口
         this.setTitle("请输入书名和 ISBN"); // 设置窗口标题
-        this.getContentPane().setBackground(Color.pink); // 设置背景颜色
+        this.setContentPane(new BackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg"));
+        this.setLayout(null); // 设置布局为手动布局
         this.setVisible(true); // 显示窗口
 
         this.addPart(); // 添加组件

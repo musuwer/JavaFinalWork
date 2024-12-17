@@ -5,9 +5,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * WholeWin 类
@@ -25,72 +27,82 @@ public class WholeWin extends JFrame {
 
         // 创建自定义背景面板
         BackgroundPanel backgroundPanel = new BackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg");
+        backgroundPanel.setLayout(null); // 设置布局为绝对布局
+        this.setContentPane(backgroundPanel); // 设置内容面板为背景面板
 
         // 创建表格并写入数据
-        table = new JTable(this.writingTable(loadBooksFromFile())); // 从文件加载书籍数据并显示在表格中
-        table.setEnabled(false); // 禁止用户编辑表格内容
-        table.setFont(new Font("宋体", Font.PLAIN, 20)); // 设置表格字体
-
+        table = new JTable(this.writingTable(loadBooksFromFile()));
+        table.setEnabled(false);
+        table.setFont(new Font("宋体", Font.PLAIN, 20));
 
         // 设置表格头部样式
-        JTableHeader tableHeader = table.getTableHeader(); // 获取表格的头部
-        tableHeader.setPreferredSize(new Dimension(tableHeader.getWidth(), 30)); // 设置表格头行高
-        tableHeader.setFont(new Font("楷体", Font.BOLD, 22)); // 设置表格头字体
-        tableHeader.setEnabled(false); // 禁止表格头交互
-        tableHeader.setBackground(Color.orange); // 设置表格头背景颜色
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.setPreferredSize(new Dimension(tableHeader.getWidth(), 30));
+        tableHeader.setFont(new Font("楷体", Font.BOLD, 22));
+        tableHeader.setEnabled(false);
+        tableHeader.setBackground(Color.orange);
 
         // 设置表格内容样式
-        table.setRowHeight(26); // 设置表格行高
-        DefaultTableCellRenderer tcr = new DefaultTableCellRenderer(); // 创建表格内容渲染器
-        tcr.setHorizontalAlignment(JLabel.CENTER); // 设置内容居中显示
-        table.setDefaultRenderer(Object.class, tcr); // 应用渲染器
-        table.setBackground(Color.yellow); // 设置表格内容背景颜色
+        table.setRowHeight(26);
+        DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+        tcr.setHorizontalAlignment(JLabel.CENTER);
+        table.setDefaultRenderer(Object.class, tcr);
+        table.setBackground(Color.yellow);
 
-        JScrollPane jScrollPane = new JScrollPane(table); // 添加滚动条支持
-        jScrollPane.setBounds(0, 0, 800, 500); // 设置表格大小
+        JScrollPane jScrollPane = new JScrollPane(table);
+        jScrollPane.setBounds(0, 0, 800, 500);
         jScrollPane.setOpaque(false);
+        jScrollPane.getViewport().setOpaque(false);
 
         // 按书名排序按钮
         sortButton = new JButton("按书出版年份排序");
-        sortButton.setBounds(220, 520, 150, 40); // 设置按钮位置和大小
-        sortButton.setFont(new Font("楷体", Font.BOLD, 18)); // 设置按钮字体
-        sortButton.setBackground(Color.CYAN); // 设置按钮背景颜色
+        sortButton.setBounds(200, 520, 200, 40);
+        sortButton.setFont(new Font("楷体", Font.BOLD, 18));
+        sortButton.setBackground(Color.CYAN);
 
         // 统计书籍类别按钮
         countCategoryButton = new JButton("统计类别");
-        countCategoryButton.setBounds(420, 520, 150, 40); // 设置按钮位置和大小
-        countCategoryButton.setFont(new Font("楷体", Font.BOLD, 18)); // 设置按钮字体
-        countCategoryButton.setBackground(Color.CYAN); // 设置按钮背景颜色
+        countCategoryButton.setBounds(420, 520, 150, 40);
+        countCategoryButton.setFont(new Font("楷体", Font.BOLD, 18));
+        countCategoryButton.setBackground(Color.CYAN);
 
-        // 添加排序按钮的监听事件
-        sortButton.addActionListener(e -> {
-            sortBooksByYear(); // 调用排序方法
+        // 添加组件到背景面板
+        backgroundPanel.add(jScrollPane);
+        backgroundPanel.add(sortButton);
+        backgroundPanel.add(countCategoryButton);
+
+
+        // 监听鼠标点击位置
+        backgroundPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // 获取鼠标点击的位置
+                int x = e.getX();
+                int y = e.getY();
+                // 打印鼠标点击位置
+                System.out.println("Mouse clicked at: x = " + x + ", y = " + y);
+            }
         });
 
-        // 添加统计书籍类别按钮的监听事件
+
+        // 按钮点击事件处理
+        sortButton.addActionListener(e -> sortBooksByYear());
         countCategoryButton.addActionListener(e -> {
             List<Book> books = loadBooksFromFile(); // 从文件加载书籍数据
             Map<String, Integer> categoryCount = countCategory(books); // 统计书籍类别
             showCategoryStatistics(categoryCount); // 显示统计结果
         });
 
-        // 设置主面板
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.PINK); // 设置主面板背景颜色
-        panel.setLayout(null);
-        jScrollPane.getViewport().setOpaque(false); // 设置滚动视图透明
-        panel.add(jScrollPane);
-        panel.add(sortButton);
-        panel.add(countCategoryButton);
-
-        this.setResizable(false); // 禁止调整窗口大小
-        this.setSize(800, 600); // 设置窗口大小
-        this.setIconImage(Main.icon.getImage()); // 设置窗口图标
-        this.getContentPane().add(panel);
-        this.setLocationRelativeTo(null); // 居中显示窗口
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 关闭窗口时销毁
-        this.setVisible(true); // 显示窗口
+        // 设置窗口属性
+        this.setResizable(false);
+        this.setSize(800, 600);
+        this.setIconImage(Main.icon.getImage());
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setVisible(true);
     }
+
+
 
     // 从文件加载书籍信息
     private List<Book> loadBooksFromFile() {
@@ -106,6 +118,7 @@ public class WholeWin extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Loaded books: " + books.size());  // 打印加载的书籍数量
         return books;
     }
 
@@ -144,9 +157,11 @@ public class WholeWin extends JFrame {
         }
     }
 
-
     // 显示书籍类别统计的窗口
     private void showCategoryStatistics(Map<String, Integer> categoryCount) {
+        // 输出统计结果
+        System.out.println("Category statistics: " + categoryCount);
+
         JFrame statsFrame = new JFrame("书籍类别统计");
         statsFrame.setSize(300, 200);
         statsFrame.setLayout(null);
@@ -178,8 +193,6 @@ public class WholeWin extends JFrame {
         statsFrame.setVisible(true); // 显示窗口
     }
 
-
-
     // 显示排序完成的窗口
     private void showSortCompletePopup() {
         JFrame sortFrame = new JFrame("排序完成");
@@ -200,6 +213,7 @@ public class WholeWin extends JFrame {
     private Map<String, Integer> countCategory(List<Book> books) {
         Map<String, Integer> categoryCount = new HashMap<>(); // 创建类别统计字典
         for (Book book : books) {
+            System.out.println("统计类别: " + book.getCategory()); // 输出类别
             categoryCount.put(book.getCategory(), categoryCount.getOrDefault(book.getCategory(), 0) + 1); // 更新统计数量
         }
         return categoryCount;

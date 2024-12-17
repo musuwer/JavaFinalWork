@@ -1,7 +1,6 @@
 package com.bookAdmi;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -38,9 +37,13 @@ public class ChangedWin extends JFrame {
         this.setLocation(450, 200); // 设置窗口生成位置
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 设置关闭操作，仅销毁当前窗口
         this.setTitle("修改书籍信息"); // 设置窗口标题
-        this.getContentPane().setBackground(Color.pink); // 设置背景颜色
+
+        this.setContentPane(new BackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg"));
+        this.setLayout(null); // 设置布局为手动布局
 
         this.addPart(); // 添加组件
+
+
 
         // 设置初始值
         this.titleText.setText(title);

@@ -27,17 +27,23 @@ public class AddWin extends JFrame {
     private MyButton OKButton;  // 确认按钮
     private MyButton clearButton;  // 清空按钮
 
+    private Image backgroundImage;
+
     // 构造方法，初始化窗口和组件
     AddWin() {
         super();  // 调用父类构造方法
         this.setIconImage(Main.icon.getImage());  // 设置窗口图标
         this.setSize(500, 600);  // 设置窗口大小
-        this.setLayout(null);  // 使用 null 布局，手动设置组件位置
         this.setResizable(false);  // 禁止调整窗口大小
         this.setVisible(true);  // 设置窗口可见
         this.setLocation(450, 200);  // 设置窗口显示位置
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // 设置关闭操作，仅销毁当前窗口
         this.setTitle("添加书籍信息");  // 设置窗口标题
+// 替换窗口内容面板为带背景的自定义面板
+        this.setContentPane(new BackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg"));
+        this.setLayout(null); // 设置布局为手动布局
+
+
 
         // 设置背景颜色为粉色
         this.getContentPane().setBackground(Color.PINK);
@@ -58,6 +64,15 @@ public class AddWin extends JFrame {
         clearButton.addActionListener(new ClearListener());
     }
 
+    @Override
+    public void paint(Graphics g) {
+        // 绘制背景图片
+        g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+        // 调用父类的 paint 方法以确保其他组件正常显示
+        super.paint(g);
+    }
+
+
     // 添加组件的方法
     private void addPart() {
         // 初始化并添加标签和文本框
@@ -76,12 +91,12 @@ public class AddWin extends JFrame {
         isbnText = new MyTextFiled(140, 140, 200, 30);
         this.add(isbnText);
 
-        publisherLabel = new MyLabel(80, 195, 80, 40, "出版社");
+        publisherLabel = new MyLabel(60, 195, 100, 40, "出版社");
         this.add(publisherLabel);
         publisherText = new MyTextFiled(140, 200, 200, 30);
         this.add(publisherText);
 
-        yearLabel = new MyLabel(80, 255, 80, 40, "出版年份");
+        yearLabel = new MyLabel(40, 255, 120, 40, "出版年份");
         this.add(yearLabel);
         yearText = new MyTextFiled(140, 260, 200, 30);
         this.add(yearText);

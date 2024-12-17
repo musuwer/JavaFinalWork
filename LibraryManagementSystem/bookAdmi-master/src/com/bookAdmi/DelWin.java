@@ -1,7 +1,6 @@
 package com.bookAdmi;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,8 +25,7 @@ public class DelWin extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 设置窗口关闭操作
         this.setTitle("删除书籍信息"); // 设置窗口标题
 
-        // 设置背景为粉色
-        this.getContentPane().setBackground(Color.PINK);
+        this.setContentPane(new BackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg"));
 
         // 添加组件到窗口
         this.addPart();

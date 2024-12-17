@@ -1,9 +1,8 @@
 package com.bookAdmi;
 
-import javax.swing.*; // 导入 Swing 库
-import java.awt.*; // 导入 AWT 库
-import java.awt.event.ActionEvent; // 导入事件类
-import java.awt.event.ActionListener; // 导入事件监听器接口
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 // 定义 FindWin 类，继承 JFrame，用于查找图书信息
 public class FindWin extends JFrame {
@@ -26,7 +25,8 @@ public class FindWin extends JFrame {
         this.setLocation(400, 200); // 设置窗口位置
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 设置关闭操作
         this.setTitle("查找书籍信息"); // 设置窗口标题
-        this.getContentPane().setBackground(Color.pink); // 设置背景颜色
+        this.setContentPane(new BackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg"));
+
         this.setVisible(true); // 显示窗口
 
         this.addPart(); // 添加组件
