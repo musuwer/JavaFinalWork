@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AddWin extends JFrame {
     private MyLabel titleLabel;  // 书名标签
@@ -62,6 +64,20 @@ public class AddWin extends JFrame {
         // 为按钮添加监听事件
         OKButton.addActionListener(new OKListener());
         clearButton.addActionListener(new ClearListener());
+
+
+        // 监听鼠标点击位置
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // 获取鼠标点击的坐标
+                int x = e.getX();
+                int y = e.getY();
+                // 打印坐标
+                System.out.println("Mouse clicked at: x = " + x + ", y = " + y);
+            }
+        });
+
     }
 
     @Override

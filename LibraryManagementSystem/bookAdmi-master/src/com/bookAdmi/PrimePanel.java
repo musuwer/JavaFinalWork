@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -42,6 +44,17 @@ public class PrimePanel extends JPanel {
         this.addButtons();  // 添加按钮
         this.addListen();   // 添加事件监听
         this.readBooksFile();  // 读取图书文件信息
+        // 监听鼠标点击位置
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // 获取鼠标点击的坐标
+                int x = e.getX();
+                int y = e.getY();
+                // 打印坐标
+                System.out.println("Mouse clicked at: x = " + x + ", y = " + y);
+            }
+        });
     }
 
     /**

@@ -3,6 +3,8 @@ package com.bookAdmi;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 // 定义 FindWin 类，继承 JFrame，用于查找图书信息
 public class FindWin extends JFrame {
@@ -31,6 +33,19 @@ public class FindWin extends JFrame {
 
         this.addPart(); // 添加组件
         this.addListen(); // 添加监听器
+
+        // 监听鼠标点击位置
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // 获取鼠标点击的坐标
+                int x = e.getX();
+                int y = e.getY();
+                // 打印坐标
+                System.out.println("Mouse clicked at: x = " + x + ", y = " + y);
+            }
+        });
+
     }
 
     // 添加组件
