@@ -33,17 +33,6 @@ public class FoundWin extends JFrame {
 
     private MyButton OKButton; // 确认按钮，用于关闭窗口
 
-    /**
-     * 构造方法
-     * 初始化窗口并展示传入的学生信息。
-     *
-     * @param name 学生姓名
-     * @param sex 学生性别
-     * @param place 学生籍贯
-     * @param code 学生学号
-     * @param dept 学生系别
-     * @param ban 学生班级
-     */
     public FoundWin(String name, String sex, String place, String code, String dept, String ban) {
         super();
 
