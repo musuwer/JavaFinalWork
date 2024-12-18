@@ -26,7 +26,7 @@ public class WholeWin extends JFrame {
         super("图书信息管理");
 
         // 创建自定义背景面板
-        BackgroundPanel backgroundPanel = new BackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg");
+        MyBackgroundPanel backgroundPanel = new MyBackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg");
         backgroundPanel.setLayout(null); // 设置布局为绝对布局
         this.setContentPane(backgroundPanel); // 设置内容面板为背景面板
 

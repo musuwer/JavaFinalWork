@@ -8,11 +8,11 @@ import java.awt.event.MouseEvent;
 
 // 定义 DelWin 类，继承 JFrame，用于通过书名和 ISBN 删除图书信息
 public class DelWin extends JFrame {
-    private MyLabel titleLabel; // 书名标签
-    private MyTextFiled titleText; // 书名输入框
+    private MyTools.MyLabel titleLabel; // 书名标签
+    private MyTools.MyTextFiled titleText; // 书名输入框
 
-    private MyLabel isbnLabel; // ISBN 标签
-    private MyTextFiled isbnText; // ISBN 输入框
+    private MyTools.MyLabel isbnLabel; // ISBN 标签
+    private MyTools.MyTextFiled isbnText; // ISBN 输入框
 
     private MyButton OKButton; // 确认按钮
     private MyButton clearButton; // 清空按钮
@@ -27,7 +27,7 @@ public class DelWin extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 设置窗口关闭操作
         this.setTitle("删除书籍信息"); // 设置窗口标题
 
-        this.setContentPane(new BackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg"));
+        this.setContentPane(new MyBackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg"));
 
         // 添加组件到窗口
         this.addPart();
@@ -50,16 +50,16 @@ public class DelWin extends JFrame {
 
     // 添加组件
     private void addPart() {
-        titleLabel = new MyLabel(80, 15, 80, 40, "书名");
+        titleLabel = new MyTools.MyLabel(80, 15, 80, 40, "书名");
         this.add(titleLabel);
 
-        titleText = new MyTextFiled(140, 20, 200, 30);
+        titleText = new MyTools.MyTextFiled(140, 20, 200, 30);
         this.add(titleText);
 
-        isbnLabel = new MyLabel(80, 65, 80, 40, "ISBN");
+        isbnLabel = new MyTools.MyLabel(80, 65, 80, 40, "ISBN");
         this.add(isbnLabel);
 
-        isbnText = new MyTextFiled(140, 70, 200, 30);
+        isbnText = new MyTools.MyTextFiled(140, 70, 200, 30);
         this.add(isbnText);
 
         OKButton = new MyButton(40, 200, 80, 40, "确认");

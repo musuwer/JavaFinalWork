@@ -8,23 +8,23 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class AddWin extends JFrame {
-    private MyLabel titleLabel;  // 书名标签
-    private MyTextFiled titleText;  // 书名输入框
+    private MyTools.MyLabel titleLabel;  // 书名标签
+    private MyTools.MyTextFiled titleText;  // 书名输入框
 
-    private MyLabel authorLabel;  // 作者标签
-    private MyTextFiled authorText;  // 作者输入框
+    private MyTools.MyLabel authorLabel;  // 作者标签
+    private MyTools.MyTextFiled authorText;  // 作者输入框
 
-    private MyLabel isbnLabel;  // ISBN标签
-    private MyTextFiled isbnText;  // ISBN输入框
+    private MyTools.MyLabel isbnLabel;  // ISBN标签
+    private MyTools.MyTextFiled isbnText;  // ISBN输入框
 
-    private MyLabel publisherLabel;  // 出版社标签
-    private MyTextFiled publisherText;  // 出版社输入框
+    private MyTools.MyLabel publisherLabel;  // 出版社标签
+    private MyTools.MyTextFiled publisherText;  // 出版社输入框
 
-    private MyLabel yearLabel;  // 出版年份标签
-    private MyTextFiled yearText;  // 出版年份输入框
+    private MyTools.MyLabel yearLabel;  // 出版年份标签
+    private MyTools.MyTextFiled yearText;  // 出版年份输入框
 
-    private MyLabel categoryLabel;  // 书籍类别标签
-    private MyTextFiled categoryText;  // 书籍类别输入框
+    private MyTools.MyLabel categoryLabel;  // 书籍类别标签
+    private MyTools.MyTextFiled categoryText;  // 书籍类别输入框
 
     private MyButton OKButton;  // 确认按钮
     private MyButton clearButton;  // 清空按钮
@@ -42,7 +42,7 @@ public class AddWin extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // 设置关闭操作，仅销毁当前窗口
         this.setTitle("添加书籍信息");  // 设置窗口标题
 // 替换窗口内容面板为带背景的自定义面板
-        this.setContentPane(new BackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg"));
+        this.setContentPane(new MyBackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg"));
         this.setLayout(null); // 设置布局为手动布局
 
 
@@ -92,34 +92,34 @@ public class AddWin extends JFrame {
     // 添加组件的方法
     private void addPart() {
         // 初始化并添加标签和文本框
-        titleLabel = new MyLabel(80, 15, 80, 40, "书名");
+        titleLabel = new MyTools.MyLabel(80, 15, 80, 40, "书名");
         this.add(titleLabel);
-        titleText = new MyTextFiled(140, 20, 200, 30);
+        titleText = new MyTools.MyTextFiled(140, 20, 200, 30);
         this.add(titleText);
 
-        authorLabel = new MyLabel(80, 75, 80, 40, "作者");
+        authorLabel = new MyTools.MyLabel(80, 75, 80, 40, "作者");
         this.add(authorLabel);
-        authorText = new MyTextFiled(140, 80, 200, 30);
+        authorText = new MyTools.MyTextFiled(140, 80, 200, 30);
         this.add(authorText);
 
-        isbnLabel = new MyLabel(80, 135, 80, 40, "ISBN");
+        isbnLabel = new MyTools.MyLabel(80, 135, 80, 40, "ISBN");
         this.add(isbnLabel);
-        isbnText = new MyTextFiled(140, 140, 200, 30);
+        isbnText = new MyTools.MyTextFiled(140, 140, 200, 30);
         this.add(isbnText);
 
-        publisherLabel = new MyLabel(60, 195, 100, 40, "出版社");
+        publisherLabel = new MyTools.MyLabel(60, 195, 100, 40, "出版社");
         this.add(publisherLabel);
-        publisherText = new MyTextFiled(140, 200, 200, 30);
+        publisherText = new MyTools.MyTextFiled(140, 200, 200, 30);
         this.add(publisherText);
 
-        yearLabel = new MyLabel(40, 255, 120, 40, "出版年份");
+        yearLabel = new MyTools.MyLabel(40, 255, 120, 40, "出版年份");
         this.add(yearLabel);
-        yearText = new MyTextFiled(140, 260, 200, 30);
+        yearText = new MyTools.MyTextFiled(140, 260, 200, 30);
         this.add(yearText);
 
-        categoryLabel = new MyLabel(80, 315, 80, 40, "类别");
+        categoryLabel = new MyTools.MyLabel(80, 315, 80, 40, "类别");
         this.add(categoryLabel);
-        categoryText = new MyTextFiled(140, 320, 200, 30);
+        categoryText = new MyTools.MyTextFiled(140, 320, 200, 30);
         this.add(categoryText);
     }
 

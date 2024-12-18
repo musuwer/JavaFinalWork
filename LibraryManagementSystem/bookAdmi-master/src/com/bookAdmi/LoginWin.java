@@ -87,7 +87,8 @@ public class LoginWin extends JFrame {
 
         try (BufferedReader reader = new BufferedReader(new FileReader("bookAdmi-master\\src\\com\\resource\\users.txt"))) {
             String line;
-            while ((line = reader.readLine()) != null) {
+            int LoginTag = 0; //判断账号密码是否输入正确
+            /*while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("--");
                 if (parts.length == 3 && parts[0].equals(username) && parts[1].equals(password)) {
                     if ((isAdmin && "admin".equals(parts[2])) || (isStudent && "student".equals(parts[2]))) {
@@ -97,8 +98,32 @@ public class LoginWin extends JFrame {
                         return;
                     }
                 }
+            }*/
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("--");
+                if (parts.length == 3 && parts[0].equals(username) && parts[1].equals(password)) {
+                    LoginTag = 1;
+                    // 验证是否为管理员
+                    if (isAdmin && "admin".equals(parts[2])) {
+                        JOptionPane.showMessageDialog(this, "管理员登录成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+                        this.dispose(); // 关闭当前窗口
+                        Main.adminWindow = new AdminWindow(); // 打开主窗口                        return;
+                    }
+                    // 验证是否为学生
+                    if (isStudent && "student".equals(parts[2])) {
+                        JOptionPane.showMessageDialog(this, "学生登录成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+                        this.dispose(); // 关闭当前窗口
+                        Main.studentWindow = new StudentWindow(); // 打开学生主页面
+                        return;
+                    }
+                }
+
             }
-            JOptionPane.showMessageDialog(this, "用户名或密码错误", "提示", JOptionPane.ERROR_MESSAGE);
+            // 登录失败处理
+            if(LoginTag == 0){
+                JOptionPane.showMessageDialog(this, "用户名或密码错误", "错误", JOptionPane.ERROR_MESSAGE);
+                //JOptionPane.showMessageDialog(this, "用户名或密码错误", "提示", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "用户数据加载失败", "提示", JOptionPane.ERROR_MESSAGE);
