@@ -18,7 +18,7 @@ public class DelWin extends JFrame {
     private MyButton clearButton; // 清空按钮
 
     // 构造方法，初始化窗口和组件
-    DelWin(){
+    DelWin() {
         super();
         this.setSize(500, 300); // 设置窗口大小
         this.setLayout(null); // 使用绝对布局
@@ -27,25 +27,22 @@ public class DelWin extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 设置窗口关闭操作
         this.setTitle("删除书籍信息"); // 设置窗口标题
 
+        // 设置背景面板
         this.setContentPane(new MyBackgroundPanel("bookAdmi-master\\src\\com\\resource\\background.jpg"));
 
         // 添加组件到窗口
         this.addPart();
+        this.addListen(); // 添加监听器
 
         this.setVisible(true); // 显示窗口
 
-        // 监听鼠标点击位置
+        // 监听鼠标点击位置（调试用）
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // 获取鼠标点击的坐标
-                int x = e.getX();
-                int y = e.getY();
-                // 打印坐标
-                System.out.println("Mouse clicked at: x = " + x + ", y = " + y);
+                System.out.println("Mouse clicked at: x = " + e.getX() + ", y = " + e.getY());
             }
         });
-
     }
 
     // 添加组件
@@ -79,22 +76,27 @@ public class DelWin extends JFrame {
     private class OKListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            int startNum = Main.books.size(); // 获取初始 books 集合大小
-            String isbn = isbnText.getText(); // 获取输入的 ISBN
-            String title = titleText.getText(); // 获取输入的书名
+            // 获取输入的书名和 ISBN
+            String bookTitle = titleText.getText().trim();
+            String bookISBN = isbnText.getText().trim();
 
-            // 判断图书信息是否匹配
-            if (Main.books.containsKey(isbn) && Main.books.get(isbn).getTitle().equals(title)) {
-                Main.books.remove(isbn); // 删除图书信息
+            // 校验输入是否为空
+            if (bookTitle.isEmpty() || bookISBN.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "书名和 ISBN 不能为空！", "提示", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-                // 验证删除是否成功
-                if ((Main.books.size() == startNum - 1) && (!Main.books.containsKey(isbn))) {
-                    JOptionPane.showMessageDialog(null, "删除成功！", "提示", JOptionPane.WARNING_MESSAGE); // 弹出成功提示框
-                    PrimePanel.refreshFile(); // 刷新文件
-                }
+            // 判断 books 中是否存在对应 ISBN 的记录，并校验书名是否一致
+            if (Main.books.containsKey(bookISBN) && Main.books.get(bookISBN).getTitle().equals(bookTitle)) {
+                // 删除图书记录
+                Main.books.remove(bookISBN);
+
+                // 删除成功后刷新文件
+                JOptionPane.showMessageDialog(null, "删除成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                PrimePanel.refreshFile();
             } else {
-                // 信息不匹配时弹出警告框
-                JOptionPane.showMessageDialog(null, "没有该 ISBN 的书籍或书名与 ISBN 不匹配", "提示", JOptionPane.WARNING_MESSAGE);
+                // ISBN 不存在或书名不匹配
+                JOptionPane.showMessageDialog(null, "没有该书籍信息或书名与 ISBN 不匹配", "提示", JOptionPane.WARNING_MESSAGE);
             }
         }
     }
@@ -103,8 +105,10 @@ public class DelWin extends JFrame {
     private class ClearListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            titleText.setText(""); // 清空书名输入框
-            isbnText.setText(""); // 清空 ISBN 输入框
+            // 清空书名和 ISBN 输入框
+            titleText.setText("");
+            isbnText.setText("");
+            JOptionPane.showMessageDialog(null, "输入框已清空！", "提示", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }
